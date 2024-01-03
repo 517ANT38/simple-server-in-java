@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import com.simpleserver.server.builder.BuilderServer;
+import com.simpleserver.server.defaultHandler.ServerHandler;
 
 import lombok.SneakyThrows;
 
@@ -16,12 +17,12 @@ public class SimpleServer implements Server {
     
     private final ServerSocket serverSocket;
     private final ExecutorService ex;
-    private final Class<? extends Runnable> clazz;
+    private final Class<? extends ServerHandler> clazz;
     private boolean stop = false;
 
 
     @SneakyThrows
-    private SimpleServer(String host,int port,Class<? extends Runnable> clazz) {
+    private SimpleServer(String host,int port,Class<? extends ServerHandler> clazz) {
         
         this.serverSocket = new ServerSocket();
         serverSocket.bind(new InetSocketAddress(host, port));
@@ -40,7 +41,9 @@ public class SimpleServer implements Server {
         try {
             while (!stop) {
                 var socket = this.serverSocket.accept();
-                ex.execute(clazz.getConstructor(Socket.class).newInstance(socket));
+                var handler = clazz.getConstructor().newInstance();
+                handler.bindSocket(socket);
+                ex.execute(handler);
             }
         } finally {
             stop();
@@ -67,7 +70,7 @@ public class SimpleServer implements Server {
     static private class BuilderServerIml implements BuilderServer{
         private int port;
         private String host;
-        private Class<? extends Runnable> clazz;
+        private Class<? extends ServerHandler> clazz;
 
         @Override
         public BuilderServer port(int port) {
@@ -82,7 +85,7 @@ public class SimpleServer implements Server {
         }
 
         @Override
-        public BuilderServer requestHandlerClass(Class<? extends Runnable> clazz) {
+        public BuilderServer requestHandlerClass(Class<? extends ServerHandler> clazz) {
             this.clazz = clazz;
             return this;
         }
