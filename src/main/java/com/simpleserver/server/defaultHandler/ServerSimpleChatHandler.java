@@ -7,12 +7,12 @@ import java.net.Socket;
 
 import lombok.SneakyThrows;
 
-public class ServerSimpleChatSomthing implements Runnable {
+public class ServerSimpleChatHandler implements Runnable {
 
     private Socket socket;
     
 
-    public ServerSimpleChatSomthing(Socket socket) {
+    public ServerSimpleChatHandler(Socket socket) {
         this.socket = socket;
     }
 

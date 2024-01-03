@@ -10,12 +10,12 @@ import java.net.Socket;
 
 import lombok.SneakyThrows;
 
-public class ServerSomthing implements Runnable {
+public class ServerStaticHandler implements Runnable {
 
     private Socket socket; 
     private static final String PATH_WEB_APP = "webapps";
 
-    public ServerSomthing(Socket socket)  {
+    public ServerStaticHandler(Socket socket)  {
         this.socket = socket;
         
     }

@@ -1,8 +1,8 @@
 package com.simpleserver;
 
 import com.simpleserver.server.SimpleServer;
-import com.simpleserver.server.defaultHandler.ServerSimpleChatSomthing;
-import com.simpleserver.server.defaultHandler.ServerSomthing;
+import com.simpleserver.server.defaultHandler.ServerStaticHandler;
+import com.simpleserver.server.defaultHandler.ServerSimpleChatHandler;
 
 
 
@@ -13,7 +13,7 @@ public class App
         SimpleServer.builder()
             .host("localhost")
             .port(8989)
-            .requestHandlerClass(ServerSomthing.class)
+            .requestHandlerClass(ServerStaticHandler.class)
             .build()
             .run();
     }
