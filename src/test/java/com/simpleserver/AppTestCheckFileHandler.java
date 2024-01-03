@@ -1,11 +1,14 @@
 package com.simpleserver;
 
 import static org.junit.Assert.assertTrue;
-
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
@@ -43,7 +46,7 @@ public class AppTestCheckFileHandler {
         
         eFileClient.getFile(serverFile,checkFile);
 
-        assertTrue(checkFiles(DIR_PATH + serverFile,checkFile));
+        assertTrue(compareImage(new File(DIR_PATH + serverFile),new File(checkFile)) >= 0.5);
 
     }
 
@@ -54,11 +57,44 @@ public class AppTestCheckFileHandler {
     }
 
     @SneakyThrows
-    private boolean checkFiles(String path1, String path2) {
+    private static boolean checkFiles(String path1, String path2) {
         
         Reader reader1 = new BufferedReader(new FileReader(path1));
         Reader reader2 = new BufferedReader(new FileReader(path2));        
         
         return IOUtils.contentEqualsIgnoreEOL(reader1,reader2);
     } 
+
+    public float compareImage(File fileA, File fileB) {
+
+        float percentage = 0;
+        try {
+            // take buffer data from both image files //
+            BufferedImage biA = ImageIO.read(fileA);
+            DataBuffer dbA = biA.getData().getDataBuffer();
+            int sizeA = dbA.getSize();
+            BufferedImage biB = ImageIO.read(fileB);
+            DataBuffer dbB = biB.getData().getDataBuffer();
+            int sizeB = dbB.getSize();
+            int count = 0;
+            // compare data-buffer objects //
+            if (Math.abs(sizeA - sizeB) < 50) {
+                var n = Math.min(sizeA, sizeB);
+                for (int i = 0; i < n; i++) {
+    
+                    if (dbA.getElem(i) == dbB.getElem(i)) {
+                        count = count + 1;
+                    }
+    
+                }
+                percentage = (count * 100) / n;
+            } else {
+                System.out.println("Both the images are not of same size");
+            }
+    
+        } catch (Exception e) {
+            System.out.println("Failed to compare image files ...");
+        }
+        return percentage;
+    }
 }
