@@ -18,6 +18,12 @@ public class ServerStaticHandler implements ServerHandler {
     private PrintWriter out; 
     private static final String PATH_WEB_APP = "webapps";
 
+    {
+        File folder = new File(PATH_WEB_APP);
+        if(!folder.exists()){
+            folder.mkdir();
+        }
+    }
     
 
     @Override
