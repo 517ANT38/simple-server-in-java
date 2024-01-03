@@ -35,7 +35,7 @@ public class ServerStaticHandler implements ServerHandler {
             
             if (path.equals("/")){
 
-                out.println("<p>Выбирете объект получения!</p>");
+                out.println("<p>Select the receiving object!</p>");
                 
             }
             else {
