@@ -10,7 +10,7 @@ import org.junit.Test;
 import com.simpleserver.client.EchoClient;
 
 
-public class AppTest 
+public class AppTestChatServerHandeler 
 {
     @Test
     public void givenClient1_whenServerResponds_thenCorrect() {
