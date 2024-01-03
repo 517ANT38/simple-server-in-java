@@ -24,14 +24,14 @@ public class ServerSimpleChatSomthing implements Runnable {
             try (var in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
                 String inputLine;
                 while ((inputLine = in.readLine()) != null) {
-                if (".".equals(inputLine)) {
-                    out.println("bye");
-                    break;
+                    if (".".equals(inputLine)) {
+                        out.println("bye");
+                        break;
+                    }
+                    out.println(inputLine);
                 }
-                out.println(inputLine);
-            }
-        } 
-        socket.close();
+            } 
+            socket.close();
         }
     }
     
