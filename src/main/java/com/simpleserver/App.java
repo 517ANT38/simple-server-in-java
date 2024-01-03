@@ -2,6 +2,7 @@ package com.simpleserver;
 
 import com.simpleserver.server.SimpleServer;
 import com.simpleserver.server.defaultHandler.ServerSimpleChatSomthing;
+import com.simpleserver.server.defaultHandler.ServerSomthing;
 
 
 
@@ -12,7 +13,7 @@ public class App
         SimpleServer.builder()
             .host("localhost")
             .port(8989)
-            .requestHandlerClass(ServerSimpleChatSomthing.class)
+            .requestHandlerClass(ServerSomthing.class)
             .build()
             .run();
     }
