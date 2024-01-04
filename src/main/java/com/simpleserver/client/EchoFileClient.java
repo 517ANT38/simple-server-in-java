@@ -2,12 +2,8 @@ package com.simpleserver.client;
 
 import java.io.DataInputStream;
 import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
-import java.net.Socket;
 import java.net.URI;
-import java.net.URL;
-
 import lombok.SneakyThrows;
 
 public class EchoFileClient {
