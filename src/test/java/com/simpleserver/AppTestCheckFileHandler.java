@@ -57,7 +57,7 @@ public class AppTestCheckFileHandler {
     }
 
     @SneakyThrows
-    private static boolean checkFiles(String path1, String path2) {
+    private boolean checkFiles(String path1, String path2) {
         
         Reader reader1 = new BufferedReader(new FileReader(path1));
         Reader reader2 = new BufferedReader(new FileReader(path2));        
@@ -65,7 +65,7 @@ public class AppTestCheckFileHandler {
         return IOUtils.contentEqualsIgnoreEOL(reader1,reader2);
     } 
 
-    public float compareImage(File fileA, File fileB) {
+    private float compareImage(File fileA, File fileB) {
 
         float percentage = 0;
         try {
