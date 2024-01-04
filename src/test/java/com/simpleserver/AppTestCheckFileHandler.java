@@ -24,8 +24,7 @@ public class AppTestCheckFileHandler {
 
     @Test
     public void givenClient2_responceFileTextCorrect(){
-        EchoFileClient eFileClient = new EchoFileClient();
-        eFileClient.startConnection("localhost",8989);
+        EchoFileClient eFileClient = new EchoFileClient("localhost",8989);
 
         var serverFile = "/pages/index.html";
         var checkFile = DIR_PATH + "/pages/test.html";
@@ -38,8 +37,7 @@ public class AppTestCheckFileHandler {
 
     @Test
     public void givenClient2_responceFileImgCorrect(){
-        EchoFileClient eFileClient = new EchoFileClient();
-        eFileClient.startConnection("localhost",8989);
+        EchoFileClient eFileClient = new EchoFileClient("localhost",8989);
 
         var serverFile = "/images/ddd.jpg";
         var checkFile = DIR_PATH + "/images/test.jpg";
